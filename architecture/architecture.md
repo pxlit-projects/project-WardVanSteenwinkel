@@ -24,9 +24,26 @@
 
 ## Communication
 
-1. **Synchronous Communication**:
-   - Implemented using **OpenFeign** for direct API calls between services.
+## Synchronous Communication
+**OpenFeign**: Utilized for real-time operations requiring immediate responses between microservices.
 
-2. **Asynchronous Communication**:
-   - Managed via **RabbitMQ** for event-driven messaging.
+- **PostService**:
+  - Fetch details about a specific post (title, content, author, creation date).  
+- **ReviewService**:
+  - Check the approval or rejection status of posts before displaying them.  
+- **CommentService**:
+  - Retrieve comments related to a post in real-time for users to view.  
+
+---
+
+### Asynchronous Communication
+**RabbitMQ**: Used for event-driven communication between services to decouple operations and handle non-immediate tasks.
+
+- **PostService to ReviewService**:
+  - Send an event when a post is submitted for review.  
+- **ReviewService to PostService**:
+  - Notify that a post has been approved or rejected, with optional comments explaining the decision.  
+- **CommentService**:
+  - Broadcast when a new comment is added to a post, allowing other services to asynchronously handle updates.  
+
 
